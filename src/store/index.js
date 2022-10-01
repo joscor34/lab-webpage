@@ -10,7 +10,9 @@ export default new Vuex.Store({
     user: ''
   },
   getters: {
-
+    isLoggedIn (state) {
+      return !!state.token
+    }
   },
   mutations: {
     setUser (state, user) {
@@ -30,11 +32,10 @@ export default new Vuex.Store({
           } else {
             console.log(data.data.data.token)
             Vue.$cookies.set('token', data.data.data.token)
-            resolve(true)
+            resolve(data.data.data.token)
           }
         }).catch(err => {
-          console.error(err)
-          reject(err)
+          reject(err.response.data.error)
         })
       })
     },
