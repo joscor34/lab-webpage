@@ -21,11 +21,11 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      <v-btn text color="#B61922" v-on:click="signinRoute">
+			<h3 v-if="logged == true">Hola, {{Username}}</h3>
+      <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
         Registrarse
       </v-btn>
-      <v-btn color="#B61922" dark elevation="0" v-on:click="loginRoute">
+      <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute">
         Iniciar sesión
       </v-btn>
       <!-- <v-btn icon color="#B61922">
@@ -50,15 +50,30 @@
 </template>
 
 <script>
+import jwtDecode from 'jwt-decode'
 export default {
-
   name: 'App',
 
   data: () => ({
-    //
+    logged: false,
+    Username: '',
+    token: ''
   }),
-
+  beforeMount () {
+    this.checkLog()
+    console.log(`BeforeMount token: ${this.token}`)
+  },
   methods: {
+    checkLog () {
+      if (!this.$cookies.get('token')) {
+        this.logged = false
+      } else {
+        this.token = this.$cookies.get('token')
+        const decodeToken = jwtDecode(this.token)
+        this.Username = decodeToken.name
+        this.logged = true
+      }
+    },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
     },
@@ -70,4 +85,4 @@ export default {
     }
   }
 }
-</script>
+</script>x
