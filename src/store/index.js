@@ -4,12 +4,10 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const baseurl = 'http://localhost:8080/api/'
-
 export default new Vuex.Store({
   state: {
-    token: null,
-    user: null
+    token: '',
+    user: ''
   },
   getters: {
 
@@ -25,19 +23,25 @@ export default new Vuex.Store({
   actions: {
     LOGIN: ({ commit }, { email, password }) => {
       return new Promise((resolve, reject) => {
-        axios.post(baseurl + 'user/login', { email, password }).then((data, status) => {
-          if (status === 200) {
-            this.$cookies.set('token', data.data.token)
+        axios.post('http://192.168.100.14:8000/api/user/login', { email, password }).then((data) => {
+          console.log(status)
+          if (!data) {
+            console.error('Something is wrong')
+          } else {
+            console.log(data.data.data.token)
+            Vue.$cookies.set('token', data.data.data.token)
             resolve(true)
           }
         }).catch(err => {
+          console.error(err)
           reject(err)
         })
       })
     },
     REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
       return new Promise((resolve, reject) => {
-        axios.post(baseurl + 'user/login', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
+        axios.post('http://192.168.100.14:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
+          console.log(status)
           if (status === 200) {
             resolve(true)
           }
