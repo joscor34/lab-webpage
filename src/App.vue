@@ -25,7 +25,7 @@
       <v-btn text color="#B61922">
         Registrarse
       </v-btn>
-      <v-btn color="#B61922" dark elevation="0">
+      <v-btn color="#B61922" dark elevation="0" v-on:click="loginRoute">
         Iniciar sesión
       </v-btn>
       <!-- <v-btn icon color="#B61922">
@@ -50,12 +50,18 @@
 </template>
 
 <script>
-
 export default {
+
   name: 'App',
 
   data: () => ({
     //
-  })
+  }),
+
+  methods: {
+    loginRoute () {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
