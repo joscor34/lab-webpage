@@ -27,6 +27,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.post(baseurl + 'user/login', { email, password }).then((data, status) => {
           if (status === 200) {
+            this.$cookies.set('token', data.data.token)
             resolve(true)
           }
         }).catch(err => {
