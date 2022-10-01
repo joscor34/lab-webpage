@@ -3,6 +3,14 @@
     <v-row justify="center">
       <v-col cols="4">
         <v-form>
+					<v-alert
+							v-if="error == true"
+							dense
+							outlined
+							type="error"
+						>
+						La Contraseña o el usuario son incorrectos
+					</v-alert>
           <v-container>
             <v-row justify="center">
               <v-col cols="12">
@@ -27,6 +35,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'LogIn',
   data: () => ({
@@ -35,13 +45,17 @@ export default {
     error: false
   }),
   methods: {
+    ...mapMutations(['setUser', 'setToken']),
     login () {
       this.$store.dispatch('LOGIN', {
         email: this.email,
         password: this.password
       }).then(success => {
         console.log(success)
+        this.setUser(this.email)
+        this.setToken(success)
         this.$router.push('/')
+        this.$router.go()
       }).catch(error => {
         console.log(error)
         this.error = true
