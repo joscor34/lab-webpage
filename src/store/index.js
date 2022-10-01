@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import Axios from 'axios'
-// import { reject, resolve } from 'core-js/fn/promise'
+import axios from 'axios'
 
 Vue.use(Vuex)
+
+const baseurl = 'http://localhost:8080/api/'
 
 export default new Vuex.Store({
   state: {
@@ -22,8 +23,27 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    LOGIN: () => {
-      return new Promise((resolve, reject) => {})
+    LOGIN: ({ commit }, { email, password }) => {
+      return new Promise((resolve, reject) => {
+        axios.post(baseurl + 'user/login', { email, password }).then((data, status) => {
+          if (status === 200) {
+            resolve(true)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
+      return new Promise((resolve, reject) => {
+        axios.post(baseurl + 'user/login', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
+          if (status === 200) {
+            resolve(true)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
     }
   },
   modules: {
