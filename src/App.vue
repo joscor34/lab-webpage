@@ -2,39 +2,45 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
-      dark
+      color="white"
+      dense
+      fixed
+      hide-on-scroll
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="Lab Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="@/assets/laboratorioLogo.svg"
           transition="scale-transition"
           width="40"
         />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h1 style="color:#333333;">Laboratorio</h1>
       </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Ultimos lanzamientos</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn text color="#B61922">
+        Registrarse
       </v-btn>
+      <v-btn color="#B61922" dark elevation="0">
+        Iniciar sesión
+      </v-btn>
+      <!-- <v-btn icon color="#B61922">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn> -->
+
+      <template v-slot:extension>
+        <v-container>
+          <v-row justify="center">
+            <v-btn text large color="#B61922">Eventos</v-btn>
+            <v-btn text large color="#B61922">Articulos</v-btn>
+            <v-btn text large color="#B61922">Miembros</v-btn>
+          </v-row>
+        </v-container>
+      </template>
     </v-app-bar>
 
     <v-main>
