@@ -5,6 +5,7 @@
       color="white"
       dense
       fixed
+      elevation="0"
       hide-on-scroll
     >
       <div class="d-flex align-center" v-on:click="homeRoute">
@@ -12,12 +13,12 @@
           alt="Lab Logo"
           class="shrink mr-2"
           contain
-          src="@/assets/laboratorioLogo.svg"
+          src="@/assets/laboratorioLogoV2.svg"
           transition="scale-transition"
-          width="40"
+          width="205"
         />
 
-        <h1 style="color:#333333;">Laboratorio</h1>
+        <!-- <h1 style="color:#333333;">Laboratorio</h1> -->
       </div>
 
       <v-spacer></v-spacer>
@@ -37,6 +38,7 @@
           <v-row justify="center">
             <v-btn text large color="#B61922">Eventos</v-btn>
             <v-btn text large color="#B61922">Articulos</v-btn>
+            <v-btn text large color="#B61922">Proyectos</v-btn>
             <v-btn text large color="#B61922">Miembros</v-btn>
           </v-row>
         </v-container>
