@@ -7,7 +7,7 @@
       fixed
       hide-on-scroll
     >
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" v-on:click="homeRoute">
         <v-img
           alt="Lab Logo"
           class="shrink mr-2"
@@ -22,7 +22,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text color="#B61922">
+      <v-btn text color="#B61922" v-on:click="signinRoute">
         Registrarse
       </v-btn>
       <v-btn color="#B61922" dark elevation="0" v-on:click="loginRoute">
@@ -60,7 +60,13 @@ export default {
 
   methods: {
     loginRoute () {
-      this.$router.push('/login')
+      this.$router.push('/login').catch(() => {})
+    },
+    signinRoute () {
+      this.$router.push('/signin').catch(() => {})
+    },
+    homeRoute () {
+      this.$router.push('/').catch(() => {})
     }
   }
 }
