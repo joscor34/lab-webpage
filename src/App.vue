@@ -22,8 +22,24 @@
       </div>
 
       <v-spacer></v-spacer>
-			<h3 v-if="logged == true">Hola, {{Username}}</h3>
-      <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
+			<v-menu
+        left
+        bottom
+      >
+				<template v-slot:activator="{ on, attrs }">
+					<h2 v-if="logged == true" class="text-h5 FIGray--text font-weight-bold">Hola, <a class="text-h5  FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a></h2>
+				</template>
+				<v-list>
+					<v-list-item
+						v-for="n in options"
+						:key="n"
+						@click="logOut"
+					>
+						<v-list-item-title>{{ n }}</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+			<v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
         Registrarse
       </v-btn>
       <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute">
@@ -40,6 +56,7 @@
             <v-btn text large color="#B61922">Articulos</v-btn>
             <v-btn text large color="#B61922">Proyectos</v-btn>
             <v-btn text large color="#B61922">Miembros</v-btn>
+						<v-btn v-if="admin == true" text large color="#B61922">Panel</v-btn>
           </v-row>
         </v-container>
       </template>
@@ -59,7 +76,11 @@ export default {
   data: () => ({
     logged: false,
     Username: '',
-    token: ''
+    token: '',
+    admin: false,
+    options: [
+      'Log out'
+    ]
   }),
   beforeMount () {
     this.checkLog()
@@ -72,9 +93,21 @@ export default {
       } else {
         this.token = this.$cookies.get('token')
         const decodeToken = jwtDecode(this.token)
-        this.Username = decodeToken.name
-        this.logged = true
+        if (decodeToken.userType === 1) {
+          this.Username = decodeToken.name
+          this.logged = true
+          this.admin = true
+        } else {
+          this.Username = decodeToken.name
+          this.logged = true
+          this.admin = false
+        }
       }
+    },
+    logOut () {
+      this.$cookies.remove('token')
+      this.$router.push('/')
+      this.$router.go()
     },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
