@@ -45,44 +45,43 @@
             </v-window-item>
           </v-window>
         </v-card>
-        <!-- <v-form v-model="valid">
-          <v-container>
-            <v-row justify="center" align="center">
-              <v-col cols="12">
-                 <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="Correo"
-                    required
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="password"
-                    :rules="password"
-                    label="Contraseña"
-                    required
-                  ></v-text-field>
-                  <v-btn>Entrar</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-form> -->
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
-  data: () => ({
-    step: 1
-  }),
   name: 'LogIn',
+  data: () => ({
+    step: 1,
+    password: '',
+    email: '',
+    error: false
+  }),
   methods: {
+    ...mapMutations(['setUser', 'setToken']),
     signinRoute () {
       this.$router.push('/signin').catch(() => {})
+    },
+    login () {
+      this.$store.dispatch('LOGIN', {
+        email: this.email,
+        password: this.password
+      }).then(success => {
+        console.log(success)
+        this.setUser(this.email)
+        this.setToken(success)
+        this.$router.push('/')
+        this.$router.go()
+      }).catch(error => {
+        console.log(error)
+        this.error = true
+      })
     }
   }
-
 }
 </script>
 
