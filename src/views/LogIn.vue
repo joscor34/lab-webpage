@@ -4,7 +4,7 @@
       <v-col cols="12" sm="10">
         <v-card class="elevation-16 mt-10">
           <v-window>
-            <v-window-item :value="1">
+            <v-window-item>
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-card-text class="mt-12 mb-10">
@@ -17,8 +17,7 @@
                       El correo o la contraseña parecen ser <strong>incorrectas</strong>.
                     </v-alert>
                     <h3 class="text-center FIGray--text">Ingresa a tu cuenta</h3>
-                    <h5 class="text-center grey--text">Entra a tu cuenta para poder acceder a tus proyectos
-                      <br>o administrarlos.
+                    <h5 class="text-center grey--text">Entra a tu cuenta para poder acceder a tus proyectos.
                     </h5>
                     <v-row justify="center" align="center">
                       <v-col cols="12" sm="8">
@@ -35,15 +34,18 @@
                           </v-col>
                         </v-row>
                         <v-btn dark color="FIRed" block tile>Ingresar</v-btn>
+                        <v-col cols="12" sm="12" class="mt-2" align="right">
+                          <span class="FIGray--text">¿Eres administrador? <br> Accede <router-link to="/loginadmin" style="text-decoration:none;" class="FIRed--text">aquí</router-link>.</span>
+                        </v-col>
                       </v-col>
                     </v-row>
                   </v-card-text>
                 </v-col>
-                <v-col cols="12" sm="6" class="FIRed rounded-bl-xl">
+                <v-col cols="12" sm="6" class="FIRed rounded-bl-xl elevation-16">
                   <div style="text-align:center; padding:130px 0;">
                     <v-card-text class="white--text">
                       <h3 class="text-center">¿Aún no tienes cuenta?</h3>
-                      <h5 class="text-center">Vamos a preparar todo para que puedas comenzar a crear tu <br> cuenta personal</h5>
+                      <h5 class="text-center">Vamos a preparar todo para que puedas comenzar a crear tu <br> cuenta personal.</h5>
                     </v-card-text>
                     <div class="text-center">
                       <v-btn outlined dark white tile v-on:click="signinRoute" class="mt-5">Registrate aquí</v-btn>
@@ -79,6 +81,9 @@ export default {
     signinRoute () {
       this.$router.push('/signin').catch(() => {})
     },
+    loginAdminRoute () {
+      this.$router.push('/loginadmin').catch(() => {})
+    },
     login () {
       this.$store.dispatch('LOGIN', {
         email: this.email,
@@ -102,7 +107,7 @@ export default {
   .v-application .rounded-bl-xl {
     border-bottom-left-radius: 300px !important;
   }
-  .v-application .rounded-b-xl {
+  .v-application .rounded-br-xl {
     border-bottom-right-radius: 300px !important;
   }
 </style>
