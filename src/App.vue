@@ -22,8 +22,24 @@
       </div>
 
       <v-spacer></v-spacer>
-			<h3 v-if="logged == true">Hola, {{Username}}</h3>
-      <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
+			<v-menu
+        left
+        bottom
+      >
+				<template v-slot:activator="{ on, attrs }">
+					<h2 v-if="logged == true" class="text-h5 FIGray--text font-weight-bold">Hola, <a class="text-h5  FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a></h2>
+				</template>
+				<v-list>
+					<v-list-item
+						v-for="n in options"
+						:key="n"
+						@click="logOut"
+					>
+						<v-list-item-title>{{ n }}</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+			<v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
         Registrarse
       </v-btn>
       <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute">
@@ -59,7 +75,10 @@ export default {
   data: () => ({
     logged: false,
     Username: '',
-    token: ''
+    token: '',
+    options: [
+      'Log out'
+    ]
   }),
   beforeMount () {
     this.checkLog()
@@ -75,6 +94,11 @@ export default {
         this.Username = decodeToken.name
         this.logged = true
       }
+    },
+    logOut () {
+      this.$cookies.remove('token')
+      this.$router.push('/')
+      this.$router.go()
     },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
