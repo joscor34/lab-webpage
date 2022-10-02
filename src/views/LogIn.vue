@@ -34,11 +34,10 @@
                             <span class="caption FIRed--text">Olvidé mi contraseña</span>
                           </v-col>
                         </v-row>
-                        <v-btn dark color="FIRed" block tile>Ingresar</v-btn>
+                        <v-btn dark color="FIRed" @click="login()" block tile>Ingresar</v-btn>
                         <v-col cols="12" sm="12" class="mt-2" align="right">
                           <span class="FIGray--text">¿Eres administrador? <br> Accede <router-link to="/loginadmin" style="text-decoration:none;" class="FIRed--text">aquí</router-link>.</span>
                         </v-col>
-                        <v-btn dark color="FIRed" @click="login()" block tile>Ingresar</v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
