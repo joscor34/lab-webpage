@@ -56,6 +56,7 @@
             <v-btn text large color="#B61922">Articulos</v-btn>
             <v-btn text large color="#B61922">Proyectos</v-btn>
             <v-btn text large color="#B61922">Miembros</v-btn>
+						<v-btn v-if="admin == true" text large color="#B61922">Panel</v-btn>
           </v-row>
         </v-container>
       </template>
@@ -76,6 +77,7 @@ export default {
     logged: false,
     Username: '',
     token: '',
+    admin: false,
     options: [
       'Log out'
     ]
@@ -91,8 +93,15 @@ export default {
       } else {
         this.token = this.$cookies.get('token')
         const decodeToken = jwtDecode(this.token)
-        this.Username = decodeToken.name
-        this.logged = true
+        if (decodeToken.userType === 1) {
+          this.Username = decodeToken.name
+          this.logged = true
+          this.admin = true
+        } else {
+          this.Username = decodeToken.name
+          this.logged = true
+          this.admin = false
+        }
       }
     },
     logOut () {
