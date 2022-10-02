@@ -55,7 +55,7 @@
                         </v-row>
                         <v-text-field label="Correo" filled dense color="white" dark v-model="email">
                         </v-text-field>
-                        <v-text-field label="Número de teléfono" :rules="[rules.required]" filled dense dark color="white"
+                        <v-text-field class="inputPrice" label="Número de teléfono" type="number" :rules="[rules.required]" filled dense dark color="white"
                         v-model.number="phoneNumber">
                         </v-text-field>
                         <v-text-field label="Contraseña" :rules="[rules.required]" filled dense color="white" dark
@@ -123,6 +123,15 @@ export default {
 </script>
 
 <style scoped>
+	.inputPrice >>> input[type="number"] {
+		-moz-appearance: textfield;
+	}
+	.inputPrice >>> input::-webkit-outer-spin-button,
+	.inputPrice >>> input::-webkit-inner-spin-button {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
   .v-application .rounded-bl-xl {
     border-bottom-left-radius: 300px !important;
   }
