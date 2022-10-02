@@ -59,11 +59,15 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.post('http://192.168.100.14:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
           console.log(status)
-          if (status === 200) {
-            resolve(true)
+          if (!data || data.data.error === 'el email ya esta registrado') {
+            console.error('Something is wrong')
+            reject(data.data.error)
+          } else {
+            console.log(data)
+            resolve(data)
           }
         }).catch(err => {
-          reject(err)
+          reject(err.response.status)
         })
       })
     }
