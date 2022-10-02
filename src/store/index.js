@@ -39,6 +39,22 @@ export default new Vuex.Store({
         })
       })
     },
+    LOGIN_ADMIN: ({ commit }, { email, password }) => {
+      return new Promise((resolve, reject) => {
+        axios.post('http://192.168.100.14:8000/api/admin/login', { email, password }).then((data) => {
+          console.log(status)
+          if (!data) {
+            console.error('Something is wrong')
+          } else {
+            console.log(data.data.data.token)
+            Vue.$cookies.set('token', data.data.data.token)
+            resolve(data.data.data.token)
+          }
+        }).catch(err => {
+          reject(err.response.data.error)
+        })
+      })
+    },
     REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
       return new Promise((resolve, reject) => {
         axios.post('http://192.168.100.14:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
