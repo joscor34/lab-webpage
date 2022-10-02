@@ -15,6 +15,7 @@
                       type="error"
                       class="ml-8 mr-8"
                       color="warning"
+											v-if="error == true"
                     >
                       El correo o la contraseña parecen ser <strong>incorrectas</strong>.
                     </v-alert>
@@ -24,8 +25,8 @@
                     </h5>
                     <v-row justify="center" align="center">
                       <v-col cols="12" sm="8">
-                        <v-form v-model="valid">
-                          <v-text-field label="Correo" filled dense color="FIRed" class="mt-6" v-model="email" :rules="rules.required" required>
+                        <v-form>
+                          <v-text-field label="Correo" filled dense color="FIRed" class="mt-6" v-model="email" :rules="[rules.required]" required>
                           </v-text-field>
                           <v-text-field label="Contraseña" filled dense color="FIRed" class="mt-1"
                           v-model="password" :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="show4 ? 'text' : 'password'" name="input-10-2" @click:append="show4 = !show4">
@@ -36,7 +37,7 @@
                             <span class="caption FIRed--text">Olvidé mi contraseña</span>
                           </v-col>
                         </v-row>
-                        <v-btn dark color="FIRed" block tile>Ingresar</v-btn>
+                        <v-btn dark color="FIRed" @click="login()" block tile>Ingresar</v-btn>
                         <v-col cols="12" sm="12" class="mt-2" align="right">
                           <span class="FIGray--text">¿No eres administrador? <br> Accede <router-link to="/login" style="text-decoration:none;" class="FIRed--text">aquí</router-link>.</span>
                         </v-col>
@@ -70,14 +71,11 @@ export default {
   }),
   methods: {
     ...mapMutations(['setUser', 'setToken']),
-    signinRoute () {
-      this.$router.push('/signin').catch(() => {})
-    },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
     },
     login () {
-      this.$store.dispatch('LOGIN', {
+      this.$store.dispatch('LOGIN_ADMIN', {
         email: this.email,
         password: this.password
       }).then(success => {
