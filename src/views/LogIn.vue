@@ -3,11 +3,19 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="10">
         <v-card class="elevation-16 mt-10">
-          <v-window v-model="step">
+          <v-window>
             <v-window-item :value="1">
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-card-text class="mt-12 mb-10">
+                    <v-alert
+                      text
+                      type="error"
+                      class="ml-8 mr-8"
+                      color="warning"
+                    >
+                      El correo o la contraseña parecen ser <strong>incorrectas</strong>.
+                    </v-alert>
                     <h3 class="text-center FIGray--text">Ingresa a tu cuenta</h3>
                     <h5 class="text-center grey--text">Entra a tu cuenta para poder acceder a tus proyectos
                       <br>o administrarlos.
@@ -15,9 +23,10 @@
                     <v-row justify="center" align="center">
                       <v-col cols="12" sm="8">
                         <v-form v-model="valid">
-                          <v-text-field label="Correo" filled dense color="FIRed" class="mt-6" v-model="email" :rules="emailRules" required>
+                          <v-text-field label="Correo" filled dense color="FIRed" class="mt-6" v-model="email" :rules="rules.required" required>
                           </v-text-field>
-                          <v-text-field label="Contraseña" filled dense color="FIRed" class="mt-1" v-model="password" :rules="passwordRules" required>
+                          <v-text-field label="Contraseña" filled dense color="FIRed" class="mt-1"
+                          v-model="password" :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="show4 ? 'text' : 'password'" name="input-10-2" @click:append="show4 = !show4">
                           </v-text-field>
                         </v-form>
                         <v-row>
@@ -56,10 +65,14 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'LogIn',
   data: () => ({
-    step: 1,
     password: '',
     email: '',
-    error: false
+    error: false,
+    show4: false,
+    rules: {
+      required: value => !!value || 'Se requiere este campo.',
+      min: v => v.length >= 8 || 'Min 8 characters'
+    }
   }),
   methods: {
     ...mapMutations(['setUser', 'setToken']),
