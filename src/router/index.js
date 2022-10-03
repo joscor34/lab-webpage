@@ -5,6 +5,7 @@ import LogIn from '../views/LogIn.vue'
 import SignIn from '../views/SignIn.vue'
 import LogInAdmin from '../views/LogInAdmin.vue'
 import SubmitProject from '../views/SubmitProject.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
     name: 'project-submission',
     beforeEnter: guardMyroute,
     component: SubmitProject
+  },
+  {
+    path: '/*',
+    name: 'PageNotFound_Error404',
+    component: PageNotFound
   }
 ]
 
