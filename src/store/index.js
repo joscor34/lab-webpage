@@ -55,6 +55,39 @@ export default new Vuex.Store({
         })
       })
     },
+    UPLOAD_FILE: ({ commit }, { userId, title, coordinador, keywords, abstract, authors, proyecto }) => {
+      const bodyDataForm = new FormData()
+      const datosColab = JSON.stringify(authors)
+      console.log(datosColab)
+      bodyDataForm.append('userId', userId)
+      bodyDataForm.append('paper', 0)
+      bodyDataForm.append('title', title)
+      bodyDataForm.append('coordinador', coordinador)
+      bodyDataForm.append('keywords', keywords)
+      bodyDataForm.append('abstract', abstract)
+      bodyDataForm.append('authors', JSON.stringify(authors))
+      bodyDataForm.append('proyecto', proyecto)
+      return new Promise((resolve, reject) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${Vue.$cookies.get('token')}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+        console.log(bodyDataForm)
+        axios.post('http://192.168.100.14:8000/api/user/subir-archivo', bodyDataForm, config).then((data, status) => {
+          if (!data) {
+            console.log('Something is wrong')
+            reject(data)
+          } else {
+            resolve(data)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error)
+        })
+      })
+    },
     REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
       return new Promise((resolve, reject) => {
         axios.post('http://192.168.100.14:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
