@@ -1,66 +1,68 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="white"
-      dense
-      fixed
-      elevation="0"
-      hide-on-scroll
-    >
-      <div class="d-flex align-center" v-on:click="homeRoute">
-        <v-img
-          alt="Lab Logo"
-          class="shrink mr-2"
-          contain
-          src="@/assets/laboratorioLogoV2.svg"
-          transition="scale-transition"
-          width="205"
-        />
-
-        <!-- <h1 style="color:#333333;">Laboratorio</h1> -->
-      </div>
-
-      <v-spacer></v-spacer>
-			<v-menu
-        left
-        bottom
+    <div class="d-none d-sm-flex">
+      <v-app-bar
+        app
+        color="white"
+        dense
+        fixed
+        elevation="0"
+        hide-on-scroll
       >
-				<template v-slot:activator="{ on, attrs }">
-					<h2 v-if="logged == true" class="text-h5 FIGray--text font-weight-bold">Hola, <a class="text-h5  FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a></h2>
-				</template>
-				<v-list>
-					<v-list-item
-						v-for="n in options"
-						:key="n"
-						@click="logOut"
-					>
-						<v-list-item-title>{{ n }}</v-list-item-title>
-					</v-list-item>
-				</v-list>
-			</v-menu>
-			<v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
-        Registrarse
-      </v-btn>
-      <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute">
-        Iniciar sesión
-      </v-btn>
-      <!-- <v-btn icon color="#B61922">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn> -->
+        <div class="d-flex align-center" v-on:click="homeRoute">
+          <v-img
+            alt="Lab Logo"
+            class="shrink mr-2"
+            contain
+            src="@/assets/laboratorioLogoV2.svg"
+            transition="scale-transition"
+            width="205"
+          />
 
-      <template v-slot:extension>
-        <v-container>
-          <v-row justify="center">
-            <v-btn text large color="#B61922">Eventos</v-btn>
-            <v-btn text large color="#B61922">Articulos</v-btn>
-            <v-btn text large color="#B61922">Proyectos</v-btn>
-            <v-btn text large color="#B61922">Miembros</v-btn>
-						<v-btn v-if="admin == true" text large color="#B61922">Panel</v-btn>
-          </v-row>
-        </v-container>
-      </template>
-    </v-app-bar>
+          <!-- <h1 style="color:#333333;">Laboratorio</h1> -->
+        </div>
+
+        <v-spacer></v-spacer>
+        <v-menu
+          left
+          bottom
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <h2 v-if="logged == true" class="text-h5 FIGray--text font-weight-bold">Hola, <a class="text-h5  FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a></h2>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="n in options"
+              :key="n"
+              @click="logOut"
+            >
+              <v-list-item-title>{{ n }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute">
+          Registrarse
+        </v-btn>
+        <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute">
+          Iniciar sesión
+        </v-btn>
+        <!-- <v-btn icon color="#B61922">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn> -->
+
+        <template v-slot:extension>
+          <v-container>
+            <v-row justify="center">
+              <v-btn text large color="#B61922">Eventos</v-btn>
+              <v-btn text large color="#B61922">Articulos</v-btn>
+              <v-btn text large color="#B61922">Proyectos</v-btn>
+              <v-btn text large color="#B61922">Miembros</v-btn>
+              <v-btn v-if="admin == true" text large color="#B61922">Panel</v-btn>
+            </v-row>
+          </v-container>
+        </template>
+      </v-app-bar>
+    </div>
 
     <v-main>
       <router-view/>
