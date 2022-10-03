@@ -13,6 +13,7 @@
                 filled
                 rounded
                 dense
+								v-model="proyectTitle"
                 color="FIRed"
               ></v-text-field>
               <v-card outlined class="mt-0 mb-6">
@@ -73,6 +74,7 @@
                 </v-row>
               </v-card>
               <v-text-field
+								v-model="coordinador"
                 label="Coordinador"
                 placeholder="Ingresa el nombre del coodinador del proyecto"
                 filled
@@ -81,6 +83,7 @@
                 color="FIRed"
               ></v-text-field>
               <v-textarea
+								v-model="abstract"
                 filled
                 rounded
                 placeholder="Aquí va el resumen (abstract) del proyecto"
@@ -89,6 +92,7 @@
                 color="FIRed"
               ></v-textarea>
               <v-text-field
+								v-model="keywords"
                 label="Palabras clave"
                 placeholder="Ingresalas separandolas por comillas (Ej. Medicina, nanoparticulas, polimeros)"
                 filled
@@ -126,6 +130,11 @@
 export default {
   name: 'SubmitProject',
   data: () => ({
+    abstract: null,
+    proyectTitle: null,
+    coordinador: null,
+    keywords: '',
+    keywords_list: [],
     colaboradores: 1
   }),
   methods: {
