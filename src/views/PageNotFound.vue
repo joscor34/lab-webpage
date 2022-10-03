@@ -30,7 +30,7 @@
         v-on:click="homeRoute"
         >
         <v-icon>mdi-arrow-left</v-icon>
-        Regresa al inicio
+        Regresar al inicio
         </v-btn>
       </v-col>
     </v-row>
