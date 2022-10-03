@@ -8,6 +8,14 @@ import SubmitProject from '../views/SubmitProject.vue'
 
 Vue.use(VueRouter)
 
+function guardMyroute (to, from, next) {
+  if (!Vue.$cookies.get('token')) {
+    next('/login')
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -40,6 +48,7 @@ const routes = [
   {
     path: '/project-submission',
     name: 'project-submission',
+    beforeEnter: guardMyroute,
     component: SubmitProject
   }
 ]
