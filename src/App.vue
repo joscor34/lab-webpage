@@ -63,6 +63,84 @@
         </template>
       </v-app-bar>
     </div>
+    <div class="d-flex d-sm-none">
+      <v-app-bar
+        app
+        color="white"
+        dense
+        fixed
+        elevation="0"
+      >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="FIRed"></v-app-bar-nav-icon>
+        <div class="align-center" v-on:click="homeRoute">
+          <v-img
+            alt="Lab Logo"
+            class="shrink mr-2"
+            contain
+            src="@/assets/laboratorioLogoV2.svg"
+            transition="scale-transition"
+            width="205"
+          />
+        </div>
+        <v-spacer></v-spacer>
+      </v-app-bar>
+    </div>
+    <div class="d-flex d-sm-none">
+      <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        dense
+        app
+        temporary
+      >
+        <v-list
+          nav
+          dense
+        >
+          <div class="ml-2" v-if="logged == true">
+            Hola, <a class="FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a>
+          </div>
+          <v-list-item-group
+            v-model="group"
+            active-class="FIRed--text text--FIRed"
+          >
+            <v-list-item>
+              <v-list-item-title>Eventos</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title>Artículos</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title>Proyectos</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title>Miembros</v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="admin == true">
+              <v-list-item-title>Panel</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+        <v-divider></v-divider>
+        <div class="pa-2 mt-2">
+          <v-btn v-if="logged == false" color="#B61922" dark elevation="0" v-on:click="loginRoute" block>
+          Iniciar Sesión
+        </v-btn>
+        <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute" block>
+          Registrarse
+        </v-btn>
+        <v-btn v-if="logged == true" text color="#B61922" @click="logOut" block>
+          <v-icon>
+            mdi-logout
+          </v-icon>
+          Cerrar sesión
+        </v-btn>
+        </div>
+      </v-navigation-drawer>
+    </div>
 
     <v-main>
       <router-view/>
@@ -82,7 +160,9 @@ export default {
     admin: false,
     options: [
       'Log out'
-    ]
+    ],
+    drawer: false,
+    group: null
   }),
   beforeMount () {
     this.checkLog()
@@ -119,6 +199,11 @@ export default {
     },
     homeRoute () {
       this.$router.push('/').catch(() => {})
+    }
+  },
+  watch: {
+    group () {
+      this.drawer = false
     }
   }
 }
