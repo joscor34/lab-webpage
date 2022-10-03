@@ -20,7 +20,7 @@
                 <v-row justify="center" align="center" class="ml-4 mr-4 mt-3 mb-8">
                   <v-col cols="12">
                     <div class="text-overline mb-8 FIGray--text">Anota los datos de los colaboladores</div>
-                    <div v-for="colaborador in colaboradores" :key="colaborador" class="mb-4">
+                    <div v-for="(colaborador, idx) in colaboradores" :key="idx" class="mb-4">
                       <v-card outlined>
                         <v-row justify="center" align="center" class="ml-4 mr-4 mt-0 mb-0">
                           <v-col cols="12">
@@ -37,6 +37,7 @@
                               </v-col>
                             </v-row>
                             <v-text-field
+															v-model="colabs[idx].colab_name"
                               label="Nombre completo"
                               placeholder="Ingresa el nombre completo (iniciando por nombre"
                               filled
@@ -45,6 +46,7 @@
                               color="FIRed"
                             ></v-text-field>
                             <v-text-field
+															v-model="colabs[idx].colab_country"
                               label="País de nacimiento"
                               placeholder="Ingresa el país de nacimiento"
                               filled
@@ -53,6 +55,7 @@
                               color="FIRed"
                             ></v-text-field>
                             <v-text-field
+															v-model="colabs[idx].colab_affil"
                               label="Institución"
                               placeholder="Institución a la que está afiliadx"
                               filled
@@ -102,6 +105,7 @@
                 color="FIRed"
               ></v-text-field>
               <v-file-input
+								v-model="file"
                 show-size
                 chips
                 rounded
@@ -113,13 +117,9 @@
             </v-col>
             <v-col cols="12" class="text-right">
               <v-btn text color="secondary">Cancelar</v-btn>
-              <v-btn color="FIRed" text>Subir</v-btn>
+              <v-btn @click="subirArchivo" color="FIRed" text>Subir</v-btn>
             </v-col>
           </v-row>
-          <!-- <div class="text-right">
-            <v-btn text color="secondary">Cancelar</v-btn>
-            <v-btn color="FIRed" text>Subir</v-btn>
-          </div> -->
         </v-card>
       </v-col>
     </v-row>
@@ -127,6 +127,8 @@
 </template>
 
 <script>
+import jwtDecode from 'jwt-decode'
+
 export default {
   name: 'SubmitProject',
   data: () => ({
@@ -134,17 +136,39 @@ export default {
     proyectTitle: null,
     coordinador: null,
     keywords: '',
-    keywords_list: [],
-    colaboradores: 1
+    token: '',
+    colaboradores: 1,
+    colabs: [{}],
+    file: null
   }),
   methods: {
+    subirArchivo () {
+      this.token = this.$cookies.get('token')
+      const decodeToken = jwtDecode(this.token)
+      this.keywords = this.keywords.toLowerCase().split(',').map(element => element.trim())
+      console.log(this.colabs)
+      this.$store.dispatch('UPLOAD_FILE', {
+        userId: decodeToken.sub,
+        title: this.proyectTitle,
+        coordinador: this.coordinador,
+        keywords: this.keywords,
+        abstract: this.abstract,
+        authors: this.colabs,
+        proyecto: this.file
+      }).then(success => {
+        console.log(success)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     addColab () {
+      const colaborador = {}
+      this.colabs.push(colaborador)
       this.colaboradores += 1
-      console.log(this.colaboradores)
     },
     removeColab () {
+      this.colabs.pop()
       this.colaboradores -= 1
-      console.log(this.colaboradores)
     }
   }
 }
