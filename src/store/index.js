@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    user: ''
+    user: '',
+    admin: ''
   },
   getters: {
     isLoggedIn (state) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setAdmin (state, admin) {
+      state.admin = admin
+    },
     setUser (state, user) {
       state.user = user
     },
@@ -101,6 +105,26 @@ export default new Vuex.Store({
           }
         }).catch(err => {
           reject(err.response.status)
+        })
+      })
+    },
+    GET_PROYECTS: ({ commit }) => {
+      return new Promise((resolve, reject) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${Vue.$cookies.get('token')}`
+          }
+        }
+        axios.get('http://192.168.100.14:8000/api/admin/proyectos', config).then((data) => {
+          if (!data) {
+            console.error('Something is wrong')
+            reject(data)
+          } else {
+            resolve(data)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error)
         })
       })
     }
