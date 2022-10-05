@@ -100,28 +100,53 @@
           nav
           dense
         >
+          <v-img
+            alt="Lab Logo"
+            class="shrink mr-2"
+            contain
+            src="@/assets/laboratorioLogoV2.svg"
+            transition="scale-transition"
+            width="205"
+            v-if="logged == false"
+          />
           <div class="ml-2" v-if="logged == true">
             Hola, <a class="FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a>
+            <v-divider></v-divider>
           </div>
           <v-list-item-group
             active-class="FIRed--text text--FIRed"
           >
             <v-list-item>
+              <v-icon class="mr-2">
+                mdi-calendar
+              </v-icon>
               <v-list-item-title>Eventos</v-list-item-title>
             </v-list-item>
 
             <v-list-item>
+              <v-icon class="mr-2">
+                mdi-note-multiple
+              </v-icon>
               <v-list-item-title>Artículos</v-list-item-title>
             </v-list-item>
 
             <v-list-item>
+              <v-icon class="mr-2">
+                mdi-hammer-screwdriver
+              </v-icon>
               <v-list-item-title>Proyectos</v-list-item-title>
             </v-list-item>
 
             <v-list-item>
+              <v-icon class="mr-2">
+                mdi-account-group
+              </v-icon>
               <v-list-item-title>Miembros</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="adminRoute" v-if="admin === true">
+            <v-list-item @click="adminRoute" v-if="admin == true">
+              <v-icon class="mr-2">
+                mdi-shield-crown
+              </v-icon>
               <v-list-item-title>Panel</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
