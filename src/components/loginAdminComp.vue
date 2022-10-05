@@ -70,7 +70,7 @@ export default {
     }
   }),
   methods: {
-    ...mapMutations(['setUser', 'setToken']),
+    ...mapMutations(['setAdmin', 'setToken']),
     loginRoute () {
       this.$router.push('/login').catch(() => {})
     },
@@ -80,7 +80,7 @@ export default {
         password: this.password
       }).then(success => {
         console.log(success)
-        this.setUser(this.email)
+        this.setAdmin(this.email)
         this.setToken(success)
         this.$router.push('/')
         this.$router.go()
