@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- Tamaño SM > -->
     <div class="d-none d-sm-flex">
       <v-app-bar
         app
@@ -57,12 +58,14 @@
               <v-btn text large color="#B61922">Articulos</v-btn>
               <v-btn text large color="#B61922">Proyectos</v-btn>
               <v-btn text large color="#B61922">Miembros</v-btn>
-              <v-btn v-if="admin == true" text large color="#B61922">Panel</v-btn>
+              <v-btn v-if="admin === true" @click="adminRoute" text large color="#B61922">Panel</v-btn>
             </v-row>
           </v-container>
         </template>
       </v-app-bar>
     </div>
+
+    <!-- Tamaño xs -->
     <div class="d-flex d-sm-none">
       <v-app-bar
         app
@@ -101,7 +104,6 @@
             Hola, <a class="FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a>
           </div>
           <v-list-item-group
-            v-model="group"
             active-class="FIRed--text text--FIRed"
           >
             <v-list-item>
@@ -119,7 +121,7 @@
             <v-list-item>
               <v-list-item-title>Miembros</v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="admin == true">
+            <v-list-item @click="adminRoute" v-if="admin === true">
               <v-list-item-title>Panel</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
@@ -132,7 +134,7 @@
         <v-btn v-if="logged == false" text color="#B61922" v-on:click="signinRoute" block>
           Registrarse
         </v-btn>
-        <v-btn v-if="logged == true" text color="#B61922" @click="logOut" block>
+        <v-btn v-if="logged == true" text color="#B61922" v-on:click="logOut" block>
           <v-icon>
             mdi-logout
           </v-icon>
@@ -161,8 +163,7 @@ export default {
     options: [
       'Log out'
     ],
-    drawer: false,
-    group: null
+    drawer: false
   }),
   beforeMount () {
     this.checkLog()
@@ -199,6 +200,10 @@ export default {
     },
     homeRoute () {
       this.$router.push('/').catch(() => {})
+    },
+    adminRoute () {
+      console.log('getting in')
+      this.$router.push('/admin-panel').catch(() => {})
     }
   },
   watch: {
