@@ -97,7 +97,7 @@ export default {
       this.$store.dispatch('REGISTER', {
         firstName: this.firstName,
         lastName: this.lastName,
-        email: this.email,
+        email: this.email.toLowerCase(),
         password: this.password,
         phoneNumber: this.phoneNumber
       }).then(success => {
