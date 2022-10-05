@@ -8,7 +8,7 @@
 				indeterminate
 			></v-progress-circular>
 		</v-row>
-		<p v-else v-for="(proyecto, idx) in proyectos" :key="idx">{{idx}}: {{proyecto.title}} - {{proyecto.abstract}}</p>
+		<v-btn v-else v-for="(proyecto, idx) in proyectos" :key="idx" @click="proyectoRoute(proyecto._id)" >{{idx}}: {{proyecto.title}} - {{proyecto.abstract}}</v-btn>
 	</v-container>
 </template>
 
@@ -32,7 +32,11 @@ export default {
         this.error = err
         this.carga = false
       })
+    },
+    proyectoRoute (params) {
+      this.$router.push({ name: 'proyecto', params: { id: params } })
     }
+
   }
 }
 </script>
