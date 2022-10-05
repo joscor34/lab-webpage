@@ -109,9 +109,9 @@
             width="205"
             v-if="logged == false"
           />
-          <div class="ml-2" v-if="logged == true">
+          <div v-if="logged == true">
             Hola, <a class="FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a>
-            <v-divider></v-divider>
+            <v-divider class="mt-1"></v-divider>
           </div>
           <v-list-item-group
             active-class="FIRed--text text--FIRed"
