@@ -6,6 +6,7 @@ import SignIn from '../views/SignIn.vue'
 import LogInAdmin from '../views/LogInAdmin.vue'
 import SubmitProject from '../views/SubmitProject.vue'
 import AdminPanel from '../components/adminPanelComp.vue'
+import Proyect from '../components/proyectComp.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 
 Vue.use(VueRouter)
@@ -57,6 +58,11 @@ const routes = [
     path: '/admin-panel',
     name: 'admin-panel',
     component: AdminPanel
+  },
+  {
+    name: 'proyecto',
+    path: '/admin-panel/proyectos/:id',
+    component: Proyect
   },
   {
     path: '/*',
