@@ -87,7 +87,7 @@ export default {
     },
     login () {
       this.$store.dispatch('LOGIN', {
-        email: this.email,
+        email: this.email.toLowerCase(),
         password: this.password
       }).then(success => {
         console.log(success)
