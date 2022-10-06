@@ -8,7 +8,11 @@
 				indeterminate
 			></v-progress-circular>
 		</v-row>
-		<v-btn v-else v-for="(proyecto, idx) in proyectos" :key="idx" @click="proyectoRoute(proyecto._id)" >{{idx}}: {{proyecto.title}} - {{proyecto.abstract}}</v-btn>
+    <v-row v-else justify="center" align="center">
+      <v-col>
+        <v-btn v-for="(proyecto, idx) in proyectos" :key="idx" @click="proyectoRoute(proyecto._id)" >{{idx}}: {{proyecto.title}} - {{proyecto.abstract}}</v-btn>
+      </v-col>
+    </v-row>
 	</v-container>
 </template>
 
