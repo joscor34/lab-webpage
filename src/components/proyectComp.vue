@@ -34,8 +34,8 @@
           <v-card elevation="0" color="#edede9" shaped>
             <div class="pa-6 mb-4">
               <div class="text-overline FIRed--text">Palabras clave:</div>
-              <div v-for="(palabra, idx) in keywords" :key="idx" class="body-2">
-               <span>{{ palabra }}</span>
+              <div class="body-2">
+               <span v-for="(palabra, idx) in keywords" :key="idx" >{{ palabra }}, </span>
               </div>
               <div class="text-overline FIRed--text mt-2">Autores:</div>
               <div v-for="(autor, idx) in authors" :key="'A' + idx" class="body-2">
@@ -85,7 +85,8 @@ export default {
       }).then(success => {
         this.pdf = success.data.pdf
         this.authors = JSON.parse(success.data.authors[0])
-        this.keywords = success.data.keywords
+        this.keywords = success.data.keywords[0].split(',')
+        console.log(this.keywords)
         this.titulo = success.data.title
         this.coordinador = success.data.coordinador
         this.submitted_time = moment(success.data.submitted_time).locale('es').format('LLL')
