@@ -48,7 +48,7 @@
                 <v-icon color="FIRed">
                   mdi-paperclip
                 </v-icon>
-                <a class="FIRed--text" @click="downloadPdf" style="text-decoration: none;" target="_blank">Proyecto.pdf</a>
+                <a class="FIRed--text" @click="downloadPdf" style="text-decoration: none;" target="_blank">Archivo</a>
               </div>
             </div>
           </v-card>
