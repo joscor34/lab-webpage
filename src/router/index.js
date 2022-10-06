@@ -8,6 +8,7 @@ import SubmitProject from '../views/SubmitProject.vue'
 import AdminPanel from '../components/adminPanelComp.vue'
 import Proyect from '../components/proyectComp.vue'
 import PageNotFound from '../views/PageNotFound.vue'
+import jwtDecode from 'jwt-decode'
 
 Vue.use(VueRouter)
 
@@ -19,19 +20,20 @@ function guardMyroute (to, from, next) {
   }
 }
 
+function guardMyAdmin (to, from, next) {
+  const decodeToken = jwtDecode(Vue.$cookies.get('token'))
+  if (decodeToken.userType === 1) {
+    next()
+  } else {
+    next('/*')
+  }
+}
+
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/login',
@@ -57,11 +59,13 @@ const routes = [
   {
     path: '/admin-panel',
     name: 'admin-panel',
+    beforeEnter: guardMyAdmin,
     component: AdminPanel
   },
   {
     name: 'proyecto',
     path: '/admin-panel/proyectos/:id',
+    beforeEnter: guardMyAdmin,
     component: Proyect
   },
   {
