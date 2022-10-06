@@ -110,7 +110,7 @@
             v-if="logged == false"
           />
           <div v-if="logged == true">
-            Hola, <a class="FIRed--text font-weight-medium" v-bind="attrs" v-on="on">{{Username}}</a>
+            Hola, <a class="FIRed--text font-weight-medium">{{Username}}</a>
             <v-divider class="mt-1"></v-divider>
           </div>
           <v-list-item-group
