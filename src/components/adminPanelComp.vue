@@ -34,6 +34,39 @@
                     </v-icon>
                     Revisar
                   </v-btn>
+                  <v-dialog
+                    v-model="dialog"
+                    width="500"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn color="FIGray" v-on="on" v-bind="attrs" text>
+                        <v-icon class="mr-1">
+                          mdi-file-document-remove-outline
+                        </v-icon>
+                        <span>Eliminar</span>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title class="text-h5 FIRed--text lighten-2">
+                        ¿Quiere eliminar el documento?
+                      </v-card-title>
+
+                      <v-card-text class="pt-12 subtitle-1 lighten-2">
+                        El documento con titulo "{{ proyecto.title }}" será eliminado
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="primary"
+                          text
+                          @click="dialog = false"
+                        >
+                          I accept
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
