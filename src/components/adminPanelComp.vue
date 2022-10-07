@@ -1,5 +1,10 @@
 <template>
 	<v-container>
+    <v-row justify="center" align="center">
+      <v-col cols="12" sm="12">
+        <h1 class="FIRed--text text-center mb-6">Administración de proyectos</h1>
+      </v-col>
+		</v-row>
 		<v-row justify="center" align="center" v-if="carga">
 			<v-progress-circular
 				:size="70"
@@ -10,7 +15,6 @@
 		</v-row>
     <v-row v-else justify="center" align="center">
       <v-col cols="12" sm="10">
-        <h1 class="FIRed--text text-center mb-6">Administración de proyectos</h1>
         <v-expansion-panels popout multiple>
           <v-expansion-panel
             v-for="(proyecto, idx) in proyectos"
