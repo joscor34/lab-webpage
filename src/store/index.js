@@ -156,7 +156,7 @@ export default new Vuex.Store({
           }
         }
         axios.post('http://192.168.100.14:8000/api/admin/delProyect', { proyectId }, config).then((data) => {
-          if (!data) {
+          if (!data.data) {
             console.error('Something is wrong')
             reject(data)
           } else {
