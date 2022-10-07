@@ -147,6 +147,26 @@ export default new Vuex.Store({
           reject(error)
         })
       })
+    },
+    ELIMINATE_PROYECT: ({ commit }, { proyectId }) => {
+      return new Promise((resolve, reject) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${Vue.$cookies.get('token')}`
+          }
+        }
+        axios.post('http://192.168.100.14:8000/api/admin/delProyect', { proyectId }, config).then((data) => {
+          if (!data) {
+            console.error('Something is wrong')
+            reject(data)
+          } else {
+            resolve(data)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error)
+        })
+      })
     }
   },
   modules: {
