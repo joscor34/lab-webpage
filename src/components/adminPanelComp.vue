@@ -51,22 +51,29 @@
                       </v-btn>
                     </template>
                     <v-card>
-                      <v-card-title class="text-h5 FIRed--text lighten-2">
+                      <v-card-title class="text-h6 FIRed--text lighten-2">
                         ¿Quiere eliminar el documento?
                       </v-card-title>
 
-                      <v-card-text class="pt-12 subtitle-1 lighten-2">
-                        El documento con titulo "{{ proyecto.title }}" será eliminado
+                      <v-card-text class="mt-2 subtitle-1 lighten-2">
+                        El documento con titulo "{{ proyecto.title }}" será eliminado permanentemente
                       </v-card-text>
 
                       <v-card-actions>
+                        <v-progress-circular
+                          v-if="cargaEliminar"
+                          :size="15"
+                          :width="3"
+                          color="FIRed"
+                          indeterminate
+                        ></v-progress-circular>
                         <v-spacer></v-spacer>
                         <v-btn
-                          color="primary"
+                          color="FIRed"
                           text
-                          @click="dialog = false"
+                          @click="removeProyect(proyecto._id)"
                         >
-                          I accept
+                          Sí, eliminar
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -87,7 +94,8 @@ export default {
   data: () => ({
     proyectos: [],
     error: '',
-    carga: false
+    carga: false,
+    cargaEliminar: false
   }),
   created () {
     this.carga = true
@@ -105,6 +113,18 @@ export default {
     },
     proyectoRoute (params) {
       this.$router.push({ name: 'proyecto', params: { id: params } })
+    },
+    removeProyect (idProyecto) {
+      this.cargaEliminar = true
+      this.$store.dispatch('ELIMINATE_PROYECT', {
+        proyectId: idProyecto
+      }).then(success => {
+        console.log(success)
+        this.cargaEliminar = false
+        this.$router.go()
+      }).catch(err => {
+        console.log(err)
+      })
     }
 
   }
