@@ -29,7 +29,7 @@ export default new Vuex.Store({
   actions: {
     LOGIN: ({ commit }, { email, password }) => {
       return new Promise((resolve, reject) => {
-        axios.post('http://192.168.100.14:8000/api/user/login', { email, password }).then((data) => {
+        axios.post('http://192.168.1.64:8000/api/user/login', { email, password }).then((data) => {
           console.log(status)
           if (!data) {
             console.error('Something is wrong')
@@ -45,7 +45,7 @@ export default new Vuex.Store({
     },
     LOGIN_ADMIN: ({ commit }, { email, password }) => {
       return new Promise((resolve, reject) => {
-        axios.post('http://192.168.100.14:8000/api/admin/login', { email, password }).then((data) => {
+        axios.post('http://192.168.1.64:8000/api/admin/login', { email, password }).then((data) => {
           console.log(status)
           if (!data) {
             console.error('Something is wrong')
@@ -79,7 +79,7 @@ export default new Vuex.Store({
           }
         }
         console.log(bodyDataForm)
-        axios.post('http://192.168.100.14:8000/api/user/subir-archivo', bodyDataForm, config).then((data, status) => {
+        axios.post('http://192.168.1.64:8000/api/user/subir-archivo', bodyDataForm, config).then((data, status) => {
           if (!data) {
             console.log('Something is wrong')
             reject(data)
@@ -94,7 +94,7 @@ export default new Vuex.Store({
     },
     REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
       return new Promise((resolve, reject) => {
-        axios.post('http://192.168.100.14:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
+        axios.post('http://192.168.1.64:8000/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
           console.log(status)
           if (!data || data.data.error === 'el email ya esta registrado') {
             console.error('Something is wrong')
@@ -115,7 +115,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.get('http://192.168.100.14:8000/api/admin/proyectos', config).then((data) => {
+        axios.get('http://192.168.1.64:8000/api/admin/proyectos', config).then((data) => {
           if (!data) {
             console.error('Something is wrong')
             reject(data)
@@ -135,7 +135,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.post('http://192.168.100.14:8000/api/admin/proyecto', { proyectId }, config).then((data) => {
+        axios.post('http://192.168.1.64:8000/api/admin/proyecto', { proyectId }, config).then((data) => {
           if (!data) {
             console.error('Something is wrong')
             reject(data)
@@ -155,7 +155,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.post('http://192.168.100.14:8000/api/admin/delProyect', { proyectId }, config).then((data) => {
+        axios.post('http://192.168.1.64:8000/api/admin/delProyect', { proyectId }, config).then((data) => {
           if (!data.data) {
             console.error('Something is wrong')
             reject(data)
