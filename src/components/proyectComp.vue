@@ -1,32 +1,47 @@
 <template>
 
   <v-container>
-    <v-row justify="center" v-if="cargando" align="center">
+    <!-- <v-row justify="center" v-if="cargando" align="center">
       <v-progress-circular
 				:size="70"
 				:width="7"
 				color="FIRed"
 				indeterminate
 			></v-progress-circular>
-    </v-row>
+    </v-row> -->
     <!-- ----------------- -->
-    <div v-else>
+    <div>
       <v-row justify="center" align="start">
         <v-col cols="12" sm="10">
           <!-- AQUÍ VA EL TITULO -->
-          <h1>{{ titulo }}</h1>
-          <!-- COORDINADOR -->
-          <h5>Coordinado por {{ coordinador }}</h5>
-          <!-- FECHA Y HORA EN LA QUE SE SUBIÓ EL PROYECTO -->
-          <div class="FIGray--text">
-            <h6>Fecha de entrega: {{ submitted_time }} </h6>
-            <h6>Última modificación: {{ last_update_time }}</h6>
+          <v-skeleton-loader
+            v-if="cargando"
+            class="ml-n4"
+            max-width="400"
+            type="article"
+          ></v-skeleton-loader>
+          <div v-else>
+            <h1>{{ titulo }}</h1>
+            <!-- COORDINADOR -->
+            <h5>Coordinado por {{ coordinador }}</h5>
+            <!-- FECHA Y HORA EN LA QUE SE SUBIÓ EL PROYECTO -->
+            <div class="FIGray--text">
+              <h6>Fecha de entrega: {{ submitted_time }} </h6>
+              <h6>Última modificación: {{ last_update_time }}</h6>
+            </div>
           </div>
           <v-divider class="mb-2 mt-2"></v-divider>
         </v-col>
       </v-row>
       <v-row justify="center" align="start">
-        <v-col cols="12" sm="7">
+        <v-col cols="12" sm="7" v-if="cargando">
+          <v-skeleton-loader
+            max-width="700"
+            type="text@10"
+          >
+          </v-skeleton-loader>
+        </v-col>
+        <v-col cols="12" sm="7" v-else>
           <!-- AQUÍ VA EL ABSTRACT -->
          <p>{{ abstract }}</p>
         </v-col>
@@ -34,20 +49,54 @@
           <v-card elevation="0" color="#edede9" shaped>
             <div class="pa-6 mb-4">
               <div class="text-overline FIRed--text">Palabras clave:</div>
-              <div class="body-2">
+              <div v-if="cargando">
+                <v-skeleton-loader
+                  max-width="300"
+                  type="text@4"
+                >
+                </v-skeleton-loader>
+              </div>
+              <div class="body-2" v-else>
                <span v-for="(palabra, idx) in keywords" :key="idx" >{{ palabra }}, </span>
               </div>
               <div class="text-overline FIRed--text mt-2">Autores:</div>
-              <div v-for="(autor, idx) in authors" :key="'A' + idx" class="body-2">
-                <p><strong>Nombre:</strong> {{ autor.colab_name }}<br>
-                <strong>País:</strong> {{ autor.colab_country }}<br>
-                <strong>Institución:</strong> {{autor.colab_affil }}</p>
-                <v-divider class="mb-4"></v-divider>
+
+              <div v-if="cargando">
+                <v-skeleton-loader
+                  max-width="120"
+                  type="text@1"
+                >
+                </v-skeleton-loader>
+                <v-skeleton-loader
+                  max-width="100"
+                  type="text@1"
+                >
+                </v-skeleton-loader>
+                <v-skeleton-loader
+                  max-width="170"
+                  type="text@1"
+                >
+                </v-skeleton-loader>
+              </div>
+              <div v-else>
+                <div v-for="(autor, idx) in authors" :key="'A' + idx" class="body-2">
+                  <p><strong>Nombre:</strong> {{ autor.colab_name }}<br>
+                  <strong>País:</strong> {{ autor.colab_country }}<br>
+                  <strong>Institución:</strong> {{autor.colab_affil }}</p>
+                  <v-divider class="mb-4"></v-divider>
+                </div>
               </div>
               <div class="body-2 mt-4">
                 <v-icon color="FIRed">
                   mdi-paperclip
                 </v-icon>
+                <!-- <v-skeleton-loader
+                  class="mt-3"
+                  v-if="cargando"
+                  max-width="90"
+                  type="text@1"
+                >
+                </v-skeleton-loader> -->
                 <a class="FIRed--text" @click="downloadPdf" style="text-decoration: none;" target="_blank">Archivo</a>
               </div>
             </div>
