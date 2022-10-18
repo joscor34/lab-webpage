@@ -229,7 +229,6 @@ export default {
       this.$router.push('/').catch(() => {})
     },
     adminRoute () {
-      console.log('getting in')
       this.$router.push('/admin-panel').catch(() => {})
     }
   },
