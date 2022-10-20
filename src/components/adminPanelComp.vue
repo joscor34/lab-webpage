@@ -1,5 +1,10 @@
 <template>
 	<v-container>
+    <v-row justify="center" align="center">
+      <v-col cols="12" sm="12">
+        <h1 class="FIRed--text text-center mb-6">Administración de proyectos</h1>
+      </v-col>
+		</v-row>
 		<v-row justify="center" align="center" v-if="carga">
 			<v-progress-circular
 				:size="70"
@@ -10,7 +15,6 @@
 		</v-row>
     <v-row v-else justify="center" align="center">
       <v-col cols="12" sm="10">
-        <h1 class="FIRed--text text-center mb-6">Administración de proyectos</h1>
         <v-expansion-panels popout multiple>
           <v-expansion-panel
             v-for="(proyecto, idx) in proyectos"
@@ -34,6 +38,46 @@
                     </v-icon>
                     Revisar
                   </v-btn>
+                  <v-dialog
+                    v-model="dialog"
+                    width="500"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn color="FIGray" v-on="on" v-bind="attrs" text>
+                        <v-icon class="mr-1">
+                          mdi-file-document-remove-outline
+                        </v-icon>
+                        <span>Eliminar</span>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title class="text-h6 FIRed--text lighten-2">
+                        ¿Quiere eliminar el documento?
+                      </v-card-title>
+
+                      <v-card-text class="mt-2 subtitle-1 lighten-2">
+                        El documento con titulo "{{ proyecto.title }}" será eliminado permanentemente
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-progress-circular
+                          v-if="cargaEliminar"
+                          :size="15"
+                          :width="3"
+                          color="FIRed"
+                          indeterminate
+                        ></v-progress-circular>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="FIRed"
+                          text
+                          @click="removeProyect(proyecto._id)"
+                        >
+                          Sí, eliminar
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
@@ -50,7 +94,8 @@ export default {
   data: () => ({
     proyectos: [],
     error: '',
-    carga: false
+    carga: false,
+    cargaEliminar: false
   }),
   created () {
     this.carga = true
@@ -68,6 +113,18 @@ export default {
     },
     proyectoRoute (params) {
       this.$router.push({ name: 'proyecto', params: { id: params } })
+    },
+    removeProyect (idProyecto) {
+      this.cargaEliminar = true
+      this.$store.dispatch('ELIMINATE_PROYECT', {
+        proyectId: idProyecto
+      }).then(success => {
+        console.log(success)
+        this.cargaEliminar = false
+        this.$router.go()
+      }).catch(err => {
+        console.log(err)
+      })
     }
 
   }
