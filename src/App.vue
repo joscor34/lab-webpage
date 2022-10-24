@@ -56,7 +56,7 @@
             <v-container>
               <v-row justify="center">
                 <v-btn text large color="#B61922">Eventos</v-btn>
-                <v-btn text large color="#B61922">Articulos</v-btn>
+                <v-btn text large color="#B61922" @click="papersRoute">Articulos</v-btn>
                 <v-btn text large color="#B61922">Proyectos</v-btn>
                 <v-btn text large color="#B61922">Miembros</v-btn>
                 <v-btn v-if="admin === true" @click="adminRoute" text large color="#B61922">Panel</v-btn>
@@ -125,7 +125,7 @@
               <v-list-item-title>Eventos</v-list-item-title>
             </v-list-item>
 
-            <v-list-item>
+            <v-list-item @click="papersRoute">
               <v-icon class="mr-2">
                 mdi-note-multiple
               </v-icon>
@@ -230,6 +230,9 @@ export default {
     },
     adminRoute () {
       this.$router.push('/admin-panel').catch(() => {})
+    },
+    papersRoute () {
+      this.$router.push('/articulos').catch(() => {})
     }
   },
   watch: {
