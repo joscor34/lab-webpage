@@ -4,6 +4,8 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+const herolink = 'https://labwebapp.herokuapp.com/'
+
 export default new Vuex.Store({
   state: {
     token: '',
@@ -29,7 +31,7 @@ export default new Vuex.Store({
   actions: {
     LOGIN: ({ commit }, { email, password }) => {
       return new Promise((resolve, reject) => {
-        axios.post('https://labweb-a.herokuapp.com/api/user/login', { email, password }).then((data) => {
+        axios.post(`${herolink}api/user/login`, { email, password }).then((data) => {
           console.log(status)
           if (!data) {
             console.error('Something is wrong')
@@ -45,7 +47,7 @@ export default new Vuex.Store({
     },
     LOGIN_ADMIN: ({ commit }, { email, password }) => {
       return new Promise((resolve, reject) => {
-        axios.post('https://labweb-a.herokuapp.com/api/admin/login', { email, password }).then((data) => {
+        axios.post(`${herolink}api/admin/login`, { email, password }).then((data) => {
           console.log(status)
           if (!data) {
             console.error('Something is wrong')
@@ -79,7 +81,7 @@ export default new Vuex.Store({
           }
         }
         console.log(bodyDataForm)
-        axios.post('https://labweb-a.herokuapp.com/api/user/subir-archivo', bodyDataForm, config).then((data, status) => {
+        axios.post(`${herolink}api/user/subir-archivo`, bodyDataForm, config).then((data, status) => {
           if (!data) {
             console.log('Something is wrong')
             reject(data)
@@ -94,7 +96,7 @@ export default new Vuex.Store({
     },
     REGISTER: ({ commit }, { firstName, lastName, email, password, phoneNumber }) => {
       return new Promise((resolve, reject) => {
-        axios.post('https://labweb-a.herokuapp.com/api/user/register', { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
+        axios.post(`${herolink}api/user/register`, { firstName, lastName, email, password, phoneNumber }).then((data, status) => {
           console.log(status)
           if (!data || data.data.error === 'el email ya esta registrado') {
             console.error('Something is wrong')
@@ -115,7 +117,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.get('https://labweb-a.herokuapp.com/api/admin/proyectos', config).then((data) => {
+        axios.get(`${herolink}api/admin/proyectos`, config).then((data) => {
           if (!data) {
             console.error('Something is wrong')
             reject(data)
@@ -135,7 +137,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.post('https://labweb-a.herokuapp.com/api/admin/proyecto', { proyectId }, config).then((data) => {
+        axios.post(`${herolink}api/admin/proyecto`, { proyectId }, config).then((data) => {
           if (!data) {
             console.error('Something is wrong')
             reject(data)
@@ -155,7 +157,7 @@ export default new Vuex.Store({
             Authorization: `Bearer ${Vue.$cookies.get('token')}`
           }
         }
-        axios.post('https://labweb-a.herokuapp.com/api/admin/delProyect', { proyectId }, config).then((data) => {
+        axios.post(`${herolink}api/admin/delProyect`, { proyectId }, config).then((data) => {
           if (!data.data) {
             console.error('Something is wrong')
             reject(data)
