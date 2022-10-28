@@ -7,6 +7,7 @@ import LogInAdmin from '../views/LogInAdmin.vue'
 import SubmitProject from '../views/SubmitProject.vue'
 import AdminPanel from '../components/adminPanelComp.vue'
 import Proyect from '../components/proyectComp.vue'
+import Papers from '../views/Papers.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import jwtDecode from 'jwt-decode'
 
@@ -67,6 +68,11 @@ const routes = [
     path: '/admin-panel/proyectos/:id',
     beforeEnter: guardMyAdmin,
     component: Proyect
+  },
+  {
+    name: 'articulos',
+    path: '/articulos',
+    component: Papers
   },
   {
     path: '/*',
