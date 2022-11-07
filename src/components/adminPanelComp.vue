@@ -121,7 +121,7 @@ export default {
       }).then(success => {
         console.log(success)
         this.cargaEliminar = false
-        this.$router.go()
+        window.location.reload()
       }).catch(err => {
         console.log(err)
       })
