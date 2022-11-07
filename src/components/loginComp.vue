@@ -94,7 +94,7 @@ export default {
         this.setUser(this.email)
         this.setToken(success)
         this.$router.push('/')
-        this.$router.go()
+        window.location.reload()
       }).catch(error => {
         console.log(error)
         this.error = true
