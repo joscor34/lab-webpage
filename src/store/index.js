@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const herolink = 'https://4b33-189-193-79-206.ngrok.io/'
+const herolink = 'https://labwebapp.herokuapp.com/'
 
 export default new Vuex.Store({
   state: {
