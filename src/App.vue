@@ -217,7 +217,7 @@ export default {
     logOut () {
       this.$cookies.remove('token')
       this.$router.push('/')
-      this.$router.go()
+      window.location.reload()
     },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
