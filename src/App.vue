@@ -34,11 +34,14 @@
             </template>
             <v-list>
               <v-list-item
-                v-for="n in options"
-                :key="n"
                 @click="logOut"
               >
-                <v-list-item-title>{{ n }}</v-list-item-title>
+                <v-list-item-title>Log out</v-list-item-title>
+              </v-list-item>
+              <v-list-item
+                @click="uploadProyect"
+              >
+                <v-list-item-title>Subir proyecto</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -187,9 +190,6 @@ export default {
     Username: '',
     token: '',
     admin: false,
-    options: [
-      'Log out'
-    ],
     drawer: false
   }),
   beforeMount () {
@@ -221,6 +221,9 @@ export default {
     },
     loginRoute () {
       this.$router.push('/login').catch(() => {})
+    },
+    uploadProyect () {
+      this.$router.push('/project-submission').catch(() => {})
     },
     signinRoute () {
       this.$router.push('/signin').catch(() => {})
